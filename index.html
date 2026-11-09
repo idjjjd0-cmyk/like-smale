@@ -63,12 +63,26 @@ h3{font-size:clamp(20px,1.7vw,26px);letter-spacing:-.025em;line-height:1.12}
 /* телефон: широкие кнопки — надпись по центру, стрелка кружком справа */
 @media (max-width:760px){
   .hero3 .cta{gap:10px}
-  .hero3 .cta .btn,.ctab .btn{justify-content:center!important;height:58px;padding:0 52px!important;width:100%;font-size:15.5px;white-space:nowrap}
+  .hero3 .cta .btn,.ctab .btn{flex:none!important;justify-content:center!important;height:58px;padding:0 52px!important;width:100%;font-size:15.5px;white-space:nowrap}
   .hero3 .cta .btn .ar,.ctab .btn .ar{position:absolute!important;right:9px;top:50%;margin-top:-20px;width:40px;height:40px}
   .hero3 .cta .btn .roll,.ctab .btn .roll{text-align:center;white-space:nowrap}
   .glowb{box-shadow:0 12px 28px -14px rgba(31,91,255,.7)}
   .glowb::before{opacity:.25;filter:blur(6px)}
   .hero3 .cta .link-q{align-self:center;padding:10px 4px}
+}
+/* главная кнопка — крупная и весомая */
+.hero3 .cta .btn{height:66px;font:600 17.5px/1 Onest;letter-spacing:-.01em;padding:0 10px 0 30px;gap:16px}
+.hero3 .cta .btn .ar{width:46px;height:46px}
+.hero3 .cta .btn .ar svg{width:19px;height:19px}
+.hero3 .glowb{box-shadow:0 0 0 1px rgba(31,91,255,.25),0 22px 48px -14px rgba(31,91,255,.75)}
+.hero3 .glowb::before{opacity:.6}
+@media (max-width:760px){
+  .hero3 .cta .btn{flex:none!important;min-height:64px;height:64px!important;font:600 clamp(13.5px,calc((100vw - 118px)/14.4),16.5px)/1 Onest!important;justify-content:flex-start!important;padding:0 62px 0 22px!important}
+  @media (max-width:340px){.hero3 .cta .btn{font-size:15px!important;line-height:1.15!important}.hero3 .cta .btn{white-space:normal!important}.hero3 .cta .btn .roll,.hero3 .cta .btn .roll>span{white-space:normal!important;min-width:0!important;max-width:100%}.hero3 .cta .btn .roll{flex:1 1 auto!important}}
+  .hero3 .cta .btn .roll{text-align:left!important;flex:none;min-width:max-content}
+  .hero3 .cta .btn .ar{width:46px!important;height:46px!important;margin-top:-23px!important;right:9px!important}
+  .hero3 .glowb{box-shadow:0 0 0 1px rgba(31,91,255,.25),0 16px 34px -14px rgba(31,91,255,.75)}
+  .hero3 .glowb::before{opacity:.35}
 }
 /* перелив кнопок при наведении */
 .btn{isolation:isolate;--fx-fill:var(--ink);--fx-ink:#fff}
