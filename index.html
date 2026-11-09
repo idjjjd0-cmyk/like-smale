@@ -6,10 +6,13 @@
 <title>Like Smile — имплантация и эстетика в Обнинске</title>
 <meta name="description" content="Like Smile Clinic: эстетическая стоматология и имплантация в Обнинске. Онлайн-запись. Демо-редизайн.">
 <meta name="theme-color" content="#f2f3f5">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+html{color-scheme:only light;background:#f2f3f5}
 :root{
   --bg:#f2f3f5;--card:#ffffff;--ink:#0a0a0a;--sec:#6b6b72;--mute:#dcdde2;--line:rgba(10,10,10,.1);
   --blue:#1f5bff;--blue-grad:linear-gradient(120deg,#2a66ff 0%,#1f5bff 45%,#0b3fbf 100%);--blue-d:#0a3fd6;--blue-s:#e9eeff;--ghost:#e4e6ea;
@@ -44,6 +47,29 @@ h3{font-size:clamp(20px,1.7vw,26px);letter-spacing:-.025em;line-height:1.12}
 .btn.ghostb{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
 @media (hover:hover) and (pointer:fine){.btn:hover .ar{transform:rotate(-45deg)}}
 
+/* телефон: лёгкие анимации, чтобы ничего не дёргалось */
+@media (hover:none),(pointer:coarse){
+  .js .rv{clip-path:none!important;opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  .js .rv.in{opacity:1;transform:none}
+  .js .rv img,.js .rv.in img{transform:none!important;transition:none}
+  .hdr.solid{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(242,243,245,.97)!important}
+  .hc,.pill,.map-note,.ts-cap,.im-tag{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#fff!important}
+  .js [data-r]{transform:translateY(24px)}
+  .cmp,.cmp.drag{transition:none!important}
+  .btn:active{transform:scale(.97)}
+  .btn:active .fx-fill{transform:translateY(0);border-radius:0;transition-duration:.2s}
+  .btn:active{color:var(--fx-ink)!important}
+}
+/* телефон: широкие кнопки — надпись по центру, стрелка кружком справа */
+@media (max-width:760px){
+  .hero3 .cta{gap:10px}
+  .hero3 .cta .btn,.ctab .btn{justify-content:center!important;height:58px;padding:0 52px!important;width:100%;font-size:15.5px;white-space:nowrap}
+  .hero3 .cta .btn .ar,.ctab .btn .ar{position:absolute!important;right:9px;top:50%;margin-top:-20px;width:40px;height:40px}
+  .hero3 .cta .btn .roll,.ctab .btn .roll{text-align:center;white-space:nowrap}
+  .glowb{box-shadow:0 12px 28px -14px rgba(31,91,255,.7)}
+  .glowb::before{opacity:.25;filter:blur(6px)}
+  .hero3 .cta .link-q{align-self:center;padding:10px 4px}
+}
 /* перелив кнопок при наведении */
 .btn{isolation:isolate;--fx-fill:var(--ink);--fx-ink:#fff}
 .btn.ghostb,.res .btn,.ctab .btn{--fx-fill:var(--ink);--fx-ink:#fff}
@@ -355,6 +381,12 @@ body.lock{overflow:hidden}
 @media (hover:hover){.doc:hover .more{background:var(--blue);color:#fff;transform:translateY(-2px)}}
 .doc{cursor:pointer}
 @media (max-width:760px){.doc-edu li{grid-template-columns:1fr;gap:4px}}
+/* ручка для свайпа вниз */
+.dxm-grab{display:none}
+@media (max-width:760px){
+  .dxm-grab{display:block;position:absolute;top:8px;left:50%;width:44px;height:5px;margin-left:-22px;border-radius:5px;background:rgba(255,255,255,.85);z-index:4;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+  .dxm-sheet.dragging{transition:none!important}
+}
 /* галерея */
 .gal{display:grid;grid-template-columns:1.25fr 1fr .8fr;gap:12px;align-items:end}
 .gal .ph{border-radius:var(--r)}
@@ -611,11 +643,22 @@ footer{padding:40px 0 110px;overflow:hidden}
 .mbar{display:none}
 
 /* заставка */
-.loader{position:fixed;inset:0;z-index:100;background:#fff;display:grid;place-items:center;transition:transform .8s cubic-bezier(.77,0,.175,1)}
-.loader svg{width:70px;height:70px}
-.loader path{stroke-dasharray:120;stroke-dashoffset:120;animation:draw .7s var(--ease) forwards}
-.loader .lt{position:absolute;bottom:40px;left:0;right:0;text-align:center;font:500 13px/1 Onest;color:var(--sec);letter-spacing:.2em;opacity:0;animation:lfade .6s .3s forwards}
-@keyframes lfade{to{opacity:1}}
+.loader{position:fixed;inset:0;z-index:100;background:#fff;display:grid;place-items:center;transition:transform 1.3s cubic-bezier(.76,0,.24,1)}
+.ld-in{display:grid;justify-items:center;text-align:center;transition:opacity .7s ease,transform 1.1s cubic-bezier(.16,1,.3,1)}
+.loader svg{width:64px;height:64px}
+.loader path{stroke-dasharray:120;stroke-dashoffset:120;animation:draw 1.1s cubic-bezier(.16,1,.3,1) forwards}
+.loader svg{opacity:0;animation:ldFade .8s ease forwards}
+.ld-name{display:flex;margin-top:22px;font:500 clamp(44px,7vw,84px)/1 Onest;letter-spacing:-.05em;color:var(--ink);overflow:hidden;padding-bottom:.08em}
+.ld-name span{display:inline-block;transform:translateY(110%);opacity:0;animation:ldUp 1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(.45s + var(--k)*60ms)}
+.ld-name span:nth-child(n+6){color:var(--blue)}
+@keyframes ldUp{to{transform:none;opacity:1}}
+.ld-sub{margin-top:14px;font:500 13px/1 Onest;letter-spacing:.18em;text-transform:uppercase;color:var(--sec);opacity:0;transform:translateY(8px);animation:ldSub .9s cubic-bezier(.16,1,.3,1) forwards 1.15s}
+@keyframes ldSub{to{opacity:1;transform:none}}
+@keyframes ldFade{to{opacity:1}}
+.ld-bar{margin-top:28px;width:140px;height:2px;border-radius:2px;background:var(--mute);overflow:hidden}
+.ld-bar i{display:block;height:100%;background:var(--blue);transform-origin:left;transform:scaleX(0);animation:ldBar 2s cubic-bezier(.65,0,.35,1) forwards .25s}
+@keyframes ldBar{to{transform:scaleX(1)}}
+.loader.out .ld-in{opacity:0;transform:translateY(-24px)}
 .loader.out{transform:translateY(-100%)}
 .no-loader .loader{display:none}
 /* фото — шторкой */
@@ -700,8 +743,13 @@ footer{padding:40px 0 110px;overflow:hidden}
 </style>
 </head>
 <body>
-<script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('ls_seen'))document.documentElement.classList.add('no-loader')}catch(e){}</script>
-<div class="loader" id="loader" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M9.5 3C5.4 3 3 6.2 3 10.4c0 4 1.6 6.4 2.6 10.6.9 3.8 1.6 8 4 8 2.3 0 2.4-4.2 3.3-6.8.5-1.4 1.6-2 3.1-2s2.6.6 3.1 2c.9 2.6 1 6.8 3.3 6.8 2.4 0 3.1-4.2 4-8 1-4.2 2.6-6.6 2.6-10.6C29 6.2 26.6 3 22.5 3c-2.8 0-4.3 1.6-6.5 1.6S12.3 3 9.5 3Z" stroke="#1f5bff" stroke-width="1.4" stroke-linejoin="round"/></svg><div class="lt">LIKE SMILE CLINIC</div></div>
+<script>document.documentElement.classList.add('js');</script>
+<div class="loader" id="loader" aria-hidden="true"><div class="ld-in">
+  <svg viewBox="0 0 32 32" fill="none"><path d="M9.5 3C5.4 3 3 6.2 3 10.4c0 4 1.6 6.4 2.6 10.6.9 3.8 1.6 8 4 8 2.3 0 2.4-4.2 3.3-6.8.5-1.4 1.6-2 3.1-2s2.6.6 3.1 2c.9 2.6 1 6.8 3.3 6.8 2.4 0 3.1-4.2 4-8 1-4.2 2.6-6.6 2.6-10.6C29 6.2 26.6 3 22.5 3c-2.8 0-4.3 1.6-6.5 1.6S12.3 3 9.5 3Z" stroke="#1f5bff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  <div class="ld-name"><span style="--k:0">L</span><span style="--k:1">i</span><span style="--k:2">k</span><span style="--k:3">e</span><span style="--k:4">&nbsp;</span><span style="--k:5">S</span><span style="--k:6">m</span><span style="--k:7">i</span><span style="--k:8">l</span><span style="--k:9">e</span></div>
+  <div class="ld-sub">эстетическая стоматология · Обнинск</div>
+  <div class="ld-bar"><i></i></div>
+</div></div></div>
 <div class="prog" id="prog"></div>
 
 <header class="hdr" id="hdr">
@@ -744,7 +792,7 @@ footer{padding:40px 0 110px;overflow:hidden}
     </div>
     <div class="hstack" id="hstack" data-r style="--i:3" aria-hidden="true">
       <div class="hc hc1"><span class="hc-k">Ближайшая запись</span><div class="hc-times" id="heroTimes"></div><span class="hc-s">Онлайн-запись за 1 минуту</span></div>
-      <div class="hc hc2"><div class="hc-av"><img src="img/doctor-1.jpg" alt=""><img src="img/doctor-2.jpg" alt=""><img src="img/doctor-3.jpg" alt=""><img src="img/doctor-6.jpg" alt=""><span>+6</span></div><b>10 специалистов</b><span class="hc-s">общий стаж команды 90 лет</span></div>
+      <div class="hc hc2"><div class="hc-av"><img loading="lazy" decoding="async" src="img/doctor-1.jpg" alt=""><img loading="lazy" decoding="async" src="img/doctor-2.jpg" alt=""><img loading="lazy" decoding="async" src="img/doctor-3.jpg" alt=""><img loading="lazy" decoding="async" src="img/doctor-6.jpg" alt=""><span>+6</span></div><b>10 специалистов</b><span class="hc-s">общий стаж команды 90 лет</span></div>
       <div class="hc hc3"><span class="hc-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span><div><b>Гарантия 3 года</b><span class="hc-s">на весь план лечения</span></div></div>
       <div class="hc hc4"><span class="hc-k">Цифровой дизайн улыбки</span><div class="hc-bar"><i></i></div><span class="hc-s">Видите результат до начала лечения</span></div>
     </div>
@@ -764,7 +812,7 @@ footer{padding:40px 0 110px;overflow:hidden}
     <div class="im-l">
       <p class="kick" data-r><i></i>Имплантация</p>
       <h2 class="split" style="margin-top:18px">Имплант, который не <span class="b">отличить</span> от зуба</h2>
-      <p class="lead" data-r style="--i:1">Три детали, каждая подобрана под вашу кость и улыбку. Импланты Nobel Biocare, Osstem и JDIcon, швейцарские материалы для кости.</p>
+      <p class="lead" data-r style="--i:1;margin-top:18px">Три детали, каждая подобрана под вашу кость и улыбку. Импланты Nobel Biocare, Osstem и JDIcon, швейцарские материалы для кости.</p>
       <div class="ex-parts">
         <div class="part" data-r style="--i:2"><span class="n">01</span><div><h3>Коронка</h3><p>Цирконий или керамика E-max. Цвет подбираем по шкале VITA под соседние зубы.</p></div></div>
         <div class="part" data-r style="--i:3"><span class="n">02</span><div><h3>Абатмент</h3><p>Переходник между имплантом и коронкой. Держит коронку точно и надёжно.</p></div></div>
@@ -772,7 +820,7 @@ footer{padding:40px 0 110px;overflow:hidden}
       </div>
       <a href="#calc" class="link-q" style="display:inline-block;margin-top:28px">Рассчитать стоимость импланта</a>
     </div>
-    <div class="im-r ph rv"><img src="img/implant-glass.jpg" alt="Имплант с коронкой среди зубов"><span class="im-tag">от 39 000 ₽ · рассрочка 0%</span></div>
+    <div class="im-r ph rv"><img loading="lazy" decoding="async" src="img/implant-glass.jpg" alt="Имплант с коронкой среди зубов"><span class="im-tag">от 39 000 ₽ · рассрочка 0%</span></div>
   </div>
 </section>
 
@@ -794,7 +842,7 @@ footer{padding:40px 0 110px;overflow:hidden}
   <div class="wrap">
     <div class="sec-h"><div><p class="kick" data-r><i></i>Подход</p><h2 class="split">Точность, которую видно на <span class="b">экране</span></h2></div><p class="lead" data-r style="--i:1">Проблемы показываем на мониторе, лечим под увеличением и ведём фото-протокол.</p></div>
     <div class="calm">
-      <div class="teamshot rv"><img src="img/team.png" alt="Команда Like Smile"><span class="ts-cap">Команда Like Smile</span></div>
+      <div class="teamshot rv"><img loading="lazy" decoding="async" src="img/team.png" alt="Команда Like Smile"><span class="ts-cap">Команда Like Smile</span></div>
       <div class="feats">
         <div class="feat" data-r style="--i:1"><span class="n">01</span><h3>Микроскоп</h3><p>Точные стыки виниров и коронок, ни одного пропущенного канала.</p></div>
         <div class="feat" data-r style="--i:2"><span class="n">02</span><h3>ИИ-диагностика</h3><p>Diagnocat находит скрытые проблемы по снимку, Diagnocam — ранний кариес.</p></div>
@@ -816,7 +864,7 @@ footer{padding:40px 0 110px;overflow:hidden}
   <div class="dxm-bg" data-close></div>
   <div class="dxm-sheet">
     <button class="dxm-x" data-close aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <div class="dxm-pic doc-pic"><img id="docImg" alt=""><div class="doc-tagline" id="docTag"></div></div>
+    <div class="dxm-pic doc-pic"><img loading="lazy" decoding="async" id="docImg" alt=""><div class="doc-tagline" id="docTag"></div></div>
     <div class="dxm-body" id="docBody"></div>
   </div>
 </div>
@@ -824,21 +872,21 @@ footer{padding:40px 0 110px;overflow:hidden}
   <div class="dxm-bg" data-close></div>
   <div class="dxm-sheet">
     <button class="dxm-x" data-close aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <div class="dxm-pic"><img id="dxmImg" alt=""><span class="dxm-n" id="dxmN">01</span></div>
+    <div class="dxm-pic"><img loading="lazy" decoding="async" id="dxmImg" alt=""><span class="dxm-n" id="dxmN">01</span></div>
     <div class="dxm-body" id="dxmBody"></div>
   </div>
 </div>
 
-<section class="ctab-wrap"><div class="wrap"><div class="ctab" data-r><div class="ctab-t"><b>Не знаете, с чего начать?</b><span>Врач осмотрит, сделает снимки и составит план лечения с точной ценой. Консультация от 1 200 ₽.</span></div><a href="#book" class="btn">Записаться на диагностику<span class="ar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div></section>
+<section class="ctab-wrap"><div class="wrap"><div class="ctab" data-r><div class="ctab-t"><b>Не знаете, с чего начать?</b><span>Врач осмотрит, сделает снимки и составит план лечения с точной ценой. Консультация от 1 200 ₽.</span></div><a href="#book" class="btn">Записаться на диагностику<span class="ar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div></section>
 
 <!-- Клиника -->
 <section class="sec" style="padding-top:0">
   <div class="wrap">
     <div class="sec-h"><div><p class="kick" data-r><i></i>Клиника</p><h2 class="split">Атмосфера, в которой <span class="b">спокойно</span></h2></div><p class="lead" data-r style="--i:1">Светлые кабинеты, современное оборудование и никакой спешки. Врач показывает всё на экране.</p></div>
     <div class="gal">
-      <div class="ph rv g1"><img src="img/clinic-1.jpg" alt="Ресепшн"></div>
-      <div class="ph rv g2"><img src="img/clinic-2.jpg" alt="Кабинет"></div>
-      <div class="ph rv g3"><img src="img/clinic-3.jpg" alt="Работа врача"></div>
+      <div class="ph rv g1"><img loading="lazy" decoding="async" src="img/clinic-1.jpg" alt="Ресепшн"></div>
+      <div class="ph rv g2"><img loading="lazy" decoding="async" src="img/clinic-2.jpg" alt="Кабинет"></div>
+      <div class="ph rv g3"><img loading="lazy" decoding="async" src="img/clinic-3.jpg" alt="Работа врача"></div>
     </div>
   </div>
 </section>
@@ -870,8 +918,8 @@ footer{padding:40px 0 110px;overflow:hidden}
     </div>
     <div class="ba-r" data-r style="--i:2">
       <div class="cmp" id="cmp" role="slider" aria-label="Сравнение до и после" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-        <div class="ph"><img src="img/after-1.jpg" alt="После" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
-        <div class="ph before" id="before"><img src="img/before-1.jpg" alt="До" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <div class="ph"><img loading="lazy" decoding="async" src="img/after-1.jpg" alt="После" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <div class="ph before" id="before"><img loading="lazy" decoding="async" src="img/before-1.jpg" alt="До" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
         <span class="lb l">До</span><span class="lb r">После</span>
         <div class="handle"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></i></div>
       </div>
@@ -895,12 +943,12 @@ footer{padding:40px 0 110px;overflow:hidden}
       <div class="res" data-r style="--i:2">
         <div class="glow"></div>
         <span class="k">Ориентировочно, под ключ</span>
-        <div class="big" id="cTotal">97 500 ₽</div>
-        <p class="mon" id="cMon">или 8 125 ₽ в месяц</p>
+        <div class="big" id="cTotal">97 500 ₽</div>
+        <p class="mon" id="cMon">или 8 125 ₽ в месяц</p>
         <ul>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg><span id="cInc">Имплант, формирователь десны и коронка</span></li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg><span>Проценты по рассрочке клиника берёт на себя</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg><span id="cMsk">В Москве около 146 000 ₽</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg><span id="cMsk">В Москве около 146 000 ₽</span></li>
         </ul>
         <a href="#book" class="btn plain" id="cBook">Записаться на консультацию</a>
       </div>
@@ -924,7 +972,7 @@ footer{padding:40px 0 110px;overflow:hidden}
     <div class="steps">
       <div class="stp" data-r style="--i:1"><span class="n">01</span><h3>Заявка на сайте</h3><p>Выбираете время онлайн или оставляете телефон.</p><span class="t">1 минута</span></div>
       <div class="stp" data-r style="--i:2"><span class="n">02</span><h3>Звонок менеджера</h3><p>Подбираем удобное время и отвечаем на вопросы.</p><span class="t">в течение часа</span></div>
-      <div class="stp" data-r style="--i:3"><span class="n">03</span><h3>Осмотр и диагностика</h3><p>3D-сканирование и снимки, врач показывает всё на экране.</p><span class="t">от 1 200 ₽</span></div>
+      <div class="stp" data-r style="--i:3"><span class="n">03</span><h3>Осмотр и диагностика</h3><p>3D-сканирование и снимки, врач показывает всё на экране.</p><span class="t">от 1 200 ₽</span></div>
       <div class="stp" data-r style="--i:4"><span class="n">04</span><h3>План и цена</h3><p>Варианты лечения с итоговой суммой и личный куратор.</p><span class="t">в день визита</span></div>
     </div>
   </div>
@@ -973,7 +1021,7 @@ footer{padding:40px 0 110px;overflow:hidden}
       <h2>Запишитесь за минуту</h2>
       <p class="lead">Выберите услугу, врача и время. Менеджер позвонит в течение часа и подтвердит запись.</p>
       <ul class="perks">
-        <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></i>Консультация с осмотром от 1 200 ₽</li>
+        <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></i>Консультация с осмотром от 1 200 ₽</li>
         <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></i>Напомним о визите за день в Telegram</li>
         <li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></i>Куратор спланирует поездки из Москвы</li>
       </ul>
@@ -1014,7 +1062,7 @@ footer{padding:40px 0 110px;overflow:hidden}
         <a href="#book" class="btn" style="justify-self:start">Записаться онлайн<span class="ar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       </div>
       <div class="map rv" aria-label="Like Smile на карте: Обнинск, проспект Маркса, 87">
-        <img src="img/map-2gis.jpg" alt="Карта: Like Smile Clinic, проспект Маркса, 87, Обнинск">
+        <img loading="lazy" decoding="async" src="img/map-2gis.jpg" alt="Карта: Like Smile Clinic, проспект Маркса, 87, Обнинск">
         <div class="map-pin"><b>Like Smile Clinic</b><i></i></div>
         <span class="map-note">Проспект Маркса, 87 · 1 этаж · вход с пандусом</span>
         <a class="map-go" href="https://2gis.ru/obninsk/firm/70000001053432964" target="_blank" rel="noopener">Маршрут в 2ГИС ↗</a>
@@ -1043,7 +1091,7 @@ footer{padding:40px 0 110px;overflow:hidden}
 <script>
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const fmt=n=>Math.round(n).toLocaleString('ru-RU').replace(/ /g,' ');
+const fmt=n=>Math.round(n).toLocaleString('ru-RU').replace(/\s/g,'\u00a0');
 const ICON_ARR='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 /* ---------- данные ---------- */
@@ -1088,7 +1136,7 @@ function onScroll(){
   prog.style.transform=`scaleX(${h>0?y/h:0})`;
   hdr.classList.toggle('solid',y>20);
   if(!document.body.classList.contains('menu-open'))hdr.classList.toggle('hide',y>lastY&&y>400);
-  mbar.classList.toggle('show',y>innerHeight*.7);
+  mbar.classList.toggle('show',y>innerHeight*.7&&!window.__bookVis);
   lastY=y;
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
@@ -1123,19 +1171,19 @@ function freeSlots(d,from){const k=dKey(d);return slotsFor(d).filter(s=>{const[h
 const tabs=$('#svcTabs'),plist=$('#priceList'),spic=$('#svcPic');
 SVC.forEach((s,i)=>{
   const b=document.createElement('button');b.className='svc-tab';b.role='tab';b.textContent=s.t;b.setAttribute('aria-selected',i===0);b.onclick=()=>showSvc(i);tabs.append(b);
-  const p=document.createElement('div');p.className='ph'+(i===0?' on':'');p.dataset.ph='Фото: '+s.t.toLowerCase()+'\nimg/'+s.img;p.innerHTML=`<img src="img/${s.img}" alt="" onerror="this.remove()">`;spic.append(p);
+  const p=document.createElement('div');p.className='ph'+(i===0?' on':'');p.dataset.ph='Фото: '+s.t.toLowerCase()+'\nimg/'+s.img;p.innerHTML=`<img loading="lazy" decoding="async" src="img/${s.img}" alt="" onerror="this.remove()">`;spic.append(p);
 });
 function showSvc(i){
   $$('.svc-tab').forEach((b,j)=>b.setAttribute('aria-selected',i===j));
   $$('.ph',spic).forEach((p,j)=>p.classList.toggle('on',i===j));
   plist.className='price svc-list';void plist.offsetWidth;
-  plist.innerHTML=SVC[i].items.map(([n,d,p])=>`<li><div class="nm">${n}<small>${d}</small></div><div class="pr">${p===0?'Бесплатно':'от '+fmt(p)+' ₽'}</div><a class="go" href="#book" data-svc="${SVC[i].id}" aria-label="Записаться: ${n}">${ICON_ARR}</a></li>`).join('');
+  plist.innerHTML=SVC[i].items.map(([n,d,p])=>`<li><div class="nm">${n}<small>${d}</small></div><div class="pr">${p===0?'Бесплатно':'от '+fmt(p)+' ₽'}</div><a class="go" href="#book" data-svc="${SVC[i].id}" aria-label="Записаться: ${n}">${ICON_ARR}</a></li>`).join('');
 }
 showSvc(0);
 plist.addEventListener('click',e=>{const a=e.target.closest('[data-svc]');if(a)preselect(a.dataset.svc)});
 
 /* ---------- врачи ---------- */
-$('#docs').innerHTML=DOCS.map((d,i)=>`<article class="doc" data-r style="--i:${i}"><div class="ph" data-ph="Фото врача\nimg/doctor-${i+1}.jpg"><img src="img/doctor-${i+1}.jpg" alt="${d.n}" onerror="this.remove()"></div><h3>${d.n}</h3><p>${d.r}</p><span class="exp">${d.e}</span></article>`).join('');
+$('#docs').innerHTML=DOCS.map((d,i)=>`<article class="doc" data-r style="--i:${i}"><div class="ph" data-ph="Фото врача\nimg/doctor-${i+1}.jpg"><img loading="lazy" decoding="async" src="img/doctor-${i+1}.jpg" alt="${d.n}" onerror="this.remove()"></div><h3>${d.n}</h3><p>${d.r}</p><span class="exp">${d.e}</span></article>`).join('');
 
 /* ---------- FAQ ---------- */
 $('#faq').innerHTML=FAQ.map(([q,a],i)=>`<div class="q" data-r style="--i:${i}"><button type="button" aria-expanded="false">${q}<span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="a"><div><p>${a}</p></div></div></div>`).join('');
@@ -1155,12 +1203,12 @@ function setX(p,user){
 }
 setX(50);
 let dragging=false;
-cmp.addEventListener('pointerdown',e=>{dragging=true;cmp.setPointerCapture(e.pointerId);cmp.classList.add('drag');move(e)});
+let touched=false;cmp.addEventListener('pointerdown',e=>{dragging=true;touched=true;try{cmp.setPointerCapture(e.pointerId)}catch(_){}cmp.classList.add('drag');move(e)});
 cmp.addEventListener('pointermove',e=>dragging&&move(e));
 ['pointerup','pointercancel'].forEach(ev=>cmp.addEventListener(ev,()=>{dragging=false;cmp.classList.remove('drag')}));
 function move(e){const r=cmp.getBoundingClientRect();setX((e.clientX-r.left)/r.width*100,true)}
 cmp.addEventListener('keydown',e=>{const v=+cmp.getAttribute('aria-valuenow');if(e.key==='ArrowLeft')setX(v-5);if(e.key==='ArrowRight')setX(v+5)});
-function hint(){if(RM)return;const a=performance.now();(function f(t){const k=(t-a)/1600;if(k>1||dragging)return;setX(50+Math.sin(k*Math.PI*2)*28*(1-k));requestAnimationFrame(f)})(a)}
+function hint(){if(RM||touched)return;const a=performance.now();(function f(t){const k=(t-a)/1600;if(k>1||dragging||touched)return;setX(50+Math.sin(k*Math.PI*2)*28*(1-k));requestAnimationFrame(f)})(a)}
 
 /* ---------- калькулятор ---------- */
 let cS=0,cN=1,cT=12,shownTotal=97500;
@@ -1175,10 +1223,10 @@ function calc(){
   const c=CALC[cS];$('#cCountWrap').style.display=c.per?'':'none';$('#cCount').textContent=cN;
   $('#cCountLb').textContent=cS<2?'Сколько имплантов':'Сколько зубов';
   const total=c.p*(c.per?cN:1);
-  tween($('#cTotal'),shownTotal,total,v=>fmt(v)+' ₽');shownTotal=total;
-  $('#cMon').innerHTML=cT?`или <b>${fmt(total/cT)} ₽</b> в месяц, ${cT} мес.`:'оплата одним платежом';
+  tween($('#cTotal'),shownTotal,total,v=>fmt(v)+' ₽');shownTotal=total;
+  $('#cMon').innerHTML=cT?`или <b>${fmt(total/cT)} ₽</b> в месяц, ${cT} мес.`:'оплата одним платежом';
   $('#cInc').textContent=c.inc;
-  $('#cMsk').textContent='В Москве такое лечение стоило бы около '+fmt(Math.round(total*1.5/1000)*1000)+' ₽';
+  $('#cMsk').textContent='В Москве такое лечение стоило бы около '+fmt(Math.round(total*1.5/1000)*1000)+' ₽';
 }
 calc();
 $('#cBook').onclick=()=>preselect(cS<2?'impl':cS<4?'est':'orto');
@@ -1277,7 +1325,7 @@ const track=$('#track i');
 addEventListener('scroll',()=>{const r=track.parentNode.getBoundingClientRect();const k=Math.max(0,Math.min(1,(innerHeight*.85-r.top)/(innerHeight*.6)));track.style.transform=`scaleX(${k})`},{passive:true});
 
 /* старт */
-setTimeout(()=>{document.body.classList.add('loaded');$$('.hero .split,.hero [data-r],.hero .rv').forEach(reveal)},document.documentElement.classList.contains('no-loader')||matchMedia('(prefers-reduced-motion: reduce)').matches?50:800);
+setTimeout(()=>{document.body.classList.add('loaded');$$('.hero .split,.hero [data-r],.hero .rv').forEach(reveal)},document.documentElement.classList.contains('no-loader')||matchMedia('(prefers-reduced-motion: reduce)').matches?50:2600);
 // дубль бегущей строки для бесшовности
 $('#marq').innerHTML+=$('#marq').innerHTML;
 </script>
@@ -1306,7 +1354,7 @@ $('#marq').innerHTML+=$('#marq').innerHTML;
   const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const C={top:-.1,bottom:1.12,amp:.17,dot:1.9,speed:.9,hoverR:60,hoverLift:.35};
   let W,H,dpr,cols,rows;
-  function size(){dpr=Math.min(2,devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;cols=W<700?90:180;rows=W<700?100:120}
+  function size(){dpr=Math.min(2,devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;cols=W<700?64:170;rows=W<700?74:112}
   size();addEventListener('resize',size);
   const height=(x,z,t)=>.22*Math.sin(x*1.9-z*.9+t*.9)+.15*Math.sin(x*3.4+z*1.6-t*1.25+1.3)+.09*Math.sin((x*1.2-z*.7)*4.1+t*1.6)+.11*Math.sin(z*2.2+x*.6-t*.75);
   const m={x:-1e4,y:-1e4,sx:-1e4,sy:-1e4,k:0,on:false},rip=[];let lr=0;
@@ -1314,7 +1362,8 @@ $('#marq').innerHTML+=$('#marq').innerHTML;
   hero.addEventListener('pointermove',e=>mv(e,false),{passive:true});hero.addEventListener('pointerdown',e=>mv(e,true));hero.addEventListener('pointerleave',()=>m.on=false);
   const B=10,paths=Array.from({length:B},()=>[]);let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(hero);
   const t0=performance.now();
-  function draw(now){requestAnimationFrame(draw);if(!vis)return;
+  let odd=false;const lite=matchMedia('(pointer:coarse)').matches;
+  function draw(now){requestAnimationFrame(draw);if(!vis)return;if(lite){odd=!odd;if(odd)return}
     const t=RM?2:(now-t0)/1000*C.speed;m.sx+=(m.x-m.sx)*.12;m.sy+=(m.y-m.sy)*.12;m.k+=((m.on?1:0)-m.k)*.06;
     ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);for(const q of paths)q.length=0;
     const AMP=H*C.amp,R2=C.hoverR**2,live=rip.filter(r=>now-r.t0<900),mob=W<700,ccx=W*(mob?.5:.27),ccy=H*(mob?.36:.5),ex=W*(mob?.7:.3),ey=H*(mob?.32:.42);
@@ -1396,15 +1445,15 @@ $('#marq').innerHTML+=$('#marq').innerHTML;
 /* 3D-диагностика: карточки и страница-рассказ */
 (function(){
   const DX=[
-   {id:'kt',img:'img/dx-kt.jpg',tag:'КЛКТ',t:'Компьютерная томография',s:'3D-снимок челюсти за несколько секунд',lead:'Обычный снимок плоский, а томограф показывает челюсть в объёме: кость, корни, каналы, нервы и пазухи. Именно по нему хирург планирует имплантацию, а терапевт находит скрытое воспаление.',steps:['Вы стоите или сидите неподвижно, аппарат делает оборот вокруг головы','За несколько секунд получается объёмная 3D-модель челюсти','Врач показывает её на экране и объясняет, что видит'],f:[['Цена','3 500 ₽'],['Нужна для','имплантации, сложного лечения каналов']]},
-   {id:'scan',img:'img/dx-scan.jpg',tag:'Без слепков',t:'3D-сканирование',s:'Цифровой слепок вместо неприятной массы',lead:'Вместо слепочной массы врач проводит по зубам маленьким сканером. На экране сразу появляется точная цифровая копия ваших зубов, по которой делают виниры, коронки и капы.',steps:['Врач проводит сканером вдоль зубов, это не больно и без рвотного рефлекса','Через пару минут на мониторе готова 3D-модель','Модель уходит в лабораторию в цифре, без искажений'],f:[['Цена','1 500 ₽'],['Нужно для','виниров, коронок, элайнеров']]},
-   {id:'ai',img:'img/dx-ai.jpg',tag:'Искусственный интеллект',t:'ИИ-диагностика Diagnocat',s:'Нейросеть проверяет снимок вместе с врачом',lead:'Diagnocat анализирует снимок и отмечает места, которые легко пропустить глазом: ранний кариес, воспаление у корня, потерю кости. Окончательное решение принимает врач, а ИИ даёт ему второе мнение.',steps:['Делаем снимок или томограмму','Нейросеть размечает каждый зуб и подсвечивает проблемы','Врач проверяет находки и показывает вам отчёт'],f:[['Цена','650 ₽'],['Даёт','второе мнение к каждому снимку']]},
+   {id:'kt',img:'img/dx-kt.jpg',tag:'КЛКТ',t:'Компьютерная томография',s:'3D-снимок челюсти за несколько секунд',lead:'Обычный снимок плоский, а томограф показывает челюсть в объёме: кость, корни, каналы, нервы и пазухи. Именно по нему хирург планирует имплантацию, а терапевт находит скрытое воспаление.',steps:['Вы стоите или сидите неподвижно, аппарат делает оборот вокруг головы','За несколько секунд получается объёмная 3D-модель челюсти','Врач показывает её на экране и объясняет, что видит'],f:[['Цена','3 500 ₽'],['Нужна для','имплантации, сложного лечения каналов']]},
+   {id:'scan',img:'img/dx-scan.jpg',tag:'Без слепков',t:'3D-сканирование',s:'Цифровой слепок вместо неприятной массы',lead:'Вместо слепочной массы врач проводит по зубам маленьким сканером. На экране сразу появляется точная цифровая копия ваших зубов, по которой делают виниры, коронки и капы.',steps:['Врач проводит сканером вдоль зубов, это не больно и без рвотного рефлекса','Через пару минут на мониторе готова 3D-модель','Модель уходит в лабораторию в цифре, без искажений'],f:[['Цена','1 500 ₽'],['Нужно для','виниров, коронок, элайнеров']]},
+   {id:'ai',img:'img/dx-ai.jpg',tag:'Искусственный интеллект',t:'ИИ-диагностика Diagnocat',s:'Нейросеть проверяет снимок вместе с врачом',lead:'Diagnocat анализирует снимок и отмечает места, которые легко пропустить глазом: ранний кариес, воспаление у корня, потерю кости. Окончательное решение принимает врач, а ИИ даёт ему второе мнение.',steps:['Делаем снимок или томограмму','Нейросеть размечает каждый зуб и подсвечивает проблемы','Врач проверяет находки и показывает вам отчёт'],f:[['Цена','650 ₽'],['Даёт','второе мнение к каждому снимку']]},
    {id:'laser',img:'img/dx-laser.jpg',tag:'Лазер',t:'Лазерная диагностика Diagnocam',s:'Кариес видно до того, как он станет дыркой',lead:'Камера Diagnocam просвечивает зуб безопасным светом и показывает кариес между зубами и на самой ранней стадии. Без рентгена и без противопоказаний, поэтому подходит детям и беременным.',steps:['Врач подносит к зубу маленькую камеру','Свет проходит сквозь эмаль, кариес видно как тёмное пятно','Ранний кариес можно остановить без сверления'],f:[['Цена','уточнит врач'],['Подходит','детям и беременным']]},
-   {id:'axio',img:'img/dx-axio.jpg',tag:'Суставы',t:'Аксиография',s:'Запись того, как двигается челюсть',lead:'Аксиограф записывает движения височно-нижнечелюстного сустава. Это нужно перед брекетами и протезированием, чтобы новая улыбка не нагружала суставы и не вызывала боль.',steps:['На голову надевают лёгкую дугу с датчиками','Вы открываете и закрываете рот, двигаете челюстью','Программа строит график движения суставов'],f:[['Цена','20 000 ₽'],['Нужна перед','брекетами и протезированием']]}
+   {id:'axio',img:'img/dx-axio.jpg',tag:'Суставы',t:'Аксиография',s:'Запись того, как двигается челюсть',lead:'Аксиограф записывает движения височно-нижнечелюстного сустава. Это нужно перед брекетами и протезированием, чтобы новая улыбка не нагружала суставы и не вызывала боль.',steps:['На голову надевают лёгкую дугу с датчиками','Вы открываете и закрываете рот, двигаете челюстью','Программа строит график движения суставов'],f:[['Цена','20 000 ₽'],['Нужна перед','брекетами и протезированием']]}
   ];
   const ICON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
   const box=document.getElementById('dx');
-  box.innerHTML=DX.map((d,i)=>`<button type="button" class="dxc rv" data-i="${i}" aria-label="${d.t}: подробнее"><img src="${d.img}" alt=""><span class="tag">${d.tag}</span><span class="plus">${ICON}</span><span class="in"><span class="n">0${i+1}</span><h3>${d.t}</h3><p>${d.s}</p></span></button>`).join('');
+  box.innerHTML=DX.map((d,i)=>`<button type="button" class="dxc rv" data-i="${i}" aria-label="${d.t}: подробнее"><img loading="lazy" decoding="async" src="${d.img}" alt=""><span class="tag">${d.tag}</span><span class="plus">${ICON}</span><span class="in"><span class="n">0${i+1}</span><h3>${d.t}</h3><p>${d.s}</p></span></button>`).join('');
   const m=document.getElementById('dxm'),body=document.getElementById('dxmBody'),img=document.getElementById('dxmImg'),num=document.getElementById('dxmN');let cur=0,last=null;
   const ARR=(d)=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="${d}"/></svg>`;
   function fill(i){const d=DX[i];cur=i;img.src=d.img;num.textContent='0'+(i+1);
@@ -1422,6 +1471,21 @@ $('#marq').innerHTML+=$('#marq').innerHTML;
 })();
 </script>
 <script>
+/* нижняя панель не закрывает форму записи */
+(function(){const bk=document.getElementById('bk');if(!bk)return;new IntersectionObserver(e=>{window.__bookVis=e[0].isIntersecting;const mb=document.getElementById('mbar');if(mb&&window.__bookVis)mb.classList.remove('show');else dispatchEvent(new Event('scroll'))},{threshold:.05}).observe(bk)})();
+/* свайп вниз закрывает окно (телефон) */
+(function(){
+  document.querySelectorAll('.dxm .dxm-sheet').forEach(sh=>{
+    const g=document.createElement('span');g.className='dxm-grab';g.setAttribute('aria-hidden','true');sh.prepend(g);
+    const body=sh.querySelector('.dxm-body');let y0=null,dy=0,t0=0;
+    sh.addEventListener('touchstart',e=>{const onPic=!body.contains(e.target);if(!onPic&&body.scrollTop>2){y0=null;return}y0=e.touches[0].clientY;dy=0;t0=performance.now()},{passive:true});
+    sh.addEventListener('touchmove',e=>{if(y0===null)return;dy=e.touches[0].clientY-y0;if(dy<=0){sh.classList.remove('dragging');sh.style.transform='';return}sh.classList.add('dragging');sh.style.transform=`translateY(${dy}px)`},{passive:true});
+    sh.addEventListener('touchend',()=>{if(y0===null)return;const v=dy/Math.max(1,performance.now()-t0);sh.classList.remove('dragging');
+      if(dy>110||(dy>40&&v>.6)){sh.style.transform='';sh.closest('.dxm').querySelector('.dxm-x').click()}else sh.style.transform='';y0=null;dy=0});
+  });
+})();
+</script>
+<script>
 window.fxButtons=function(root){(root||document).querySelectorAll('.btn').forEach(b=>{if(b.dataset.fx)return;b.dataset.fx=1;
   if(b.id==='bkNext'){b.innerHTML='<span class="lbl">'+b.textContent.trim()+'</span>';const w=document.createElement('span');w.className='fx-wrap';w.setAttribute('aria-hidden','true');w.innerHTML='<span class="fx-fill"></span>';b.prepend(w);return}
   const tn=[...b.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());
@@ -1435,10 +1499,10 @@ window.fxButtons();
   const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,touch=matchMedia('(pointer:coarse)').matches;
   // заставка
   const ld=document.getElementById('loader');
-  let seen=false;try{seen=!!sessionStorage.getItem('ls_seen');sessionStorage.setItem('ls_seen',1)}catch(e){}
+  const seen=false;
   if(RM||seen){document.documentElement.classList.add('no-loader')}
-  else{setTimeout(()=>ld&&ld.classList.add('out'),700)}
-  setTimeout(()=>ld&&ld.remove(),2400);
+  else{setTimeout(()=>ld&&ld.classList.add('out'),2400)}
+  setTimeout(()=>ld&&ld.remove(),3800);
   // плавная прокрутка
   if(!RM&&!touch){const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';sc.async=true;sc.onload=()=>{const l=new Lenis({lerp:.09,wheelMultiplier:1});window.__lenis=l;(function raf(t){l.raf(t);requestAnimationFrame(raf)})(0);
     document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&document.querySelector(id)){e.preventDefault();l.scrollTo(id,{offset:-80,duration:1.4})}}))};document.head.appendChild(sc)}
@@ -1454,7 +1518,7 @@ window.fxButtons();
   function tick(){
     const r=st.getBoundingClientRect(),k=Math.max(0,Math.min(1,(innerHeight*.9-r.top)/(innerHeight*.55)));
     const n=Math.round(k*sws.length);sws.forEach((w,i)=>w.classList.toggle('lit',i<n));
-    if(!RM)rvs.forEach(el=>{const q=el.getBoundingClientRect();if(q.bottom<0||q.top>innerHeight)return;el.style.setProperty('--py',((q.top+q.height/2-innerHeight/2)*-.06).toFixed(1)+'px')});
+    if(!RM&&!touch)rvs.forEach(el=>{const q=el.getBoundingClientRect();if(q.bottom<0||q.top>innerHeight)return;el.style.setProperty('--py',((q.top+q.height/2-innerHeight/2)*-.06).toFixed(1)+'px')});
   }
   addEventListener('scroll',tick,{passive:true});tick();
 })();
